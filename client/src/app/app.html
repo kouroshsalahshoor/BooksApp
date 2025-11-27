@@ -1,1 +1,7 @@
 <h3>{{ title() }}</h3>
+
+<ul>
+  @for (item of users(); track $index) {
+  <li>{{ item.id }}</li>
+  }
+</ul>
