@@ -9,31 +9,34 @@ namespace Api.Services;
 
 public class TokenService(IConfiguration _config) : ITokenService
 {
-    public string CreateAsync(ApplicationUser user)
+    public string Create(ApplicationUser user)
     {
-        var jwtSettings = _config.GetSection("Jwt") ?? throw new Exception("Cant read Jwt");
+        var jwtSettings = _config.GetSection("Jwt") ?? throw new Exception("Can't read Jwt");
 
-        var key = _config["TokenKey"] ?? throw new Exception("Cant read TokenKey");
-        if (key.Length < 64) throw new Exception("Token key must be at leat 64 characters long");
+        var key = jwtSettings["Key"] ?? throw new Exception("Can't read TokenKey");
+        if (key.Length < 64) throw new Exception("Token key must be at least 64 characters long");
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
-
         var creds = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);
 
-        var claims = new[]
+        var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Id),
-            new Claim(ClaimTypes.Name, user.UserName ?? ""),
-            new Claim(ClaimTypes.Email, user.Email ?? ""),
+            new (ClaimTypes.NameIdentifier, user.Id),
+            new (ClaimTypes.Name, user.UserName!),
+            new (ClaimTypes.Email, user.Email!),
         };
+
+        var issuer = jwtSettings["Issuer"] ?? throw new Exception("Can't read Issuer");
+        var audience = jwtSettings["Audience"] ?? throw new Exception("Can't read Audience");
+        var expiresMinutes = jwtSettings["ExpiresMinutes"] ?? throw new Exception("Can't read ExpiresMinutes");
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Issuer = jwtSettings["Issuer"],
-            Audience = jwtSettings["Audience"],
+            Issuer = issuer,
+            Audience = audience,
             Subject = new ClaimsIdentity(claims),
             SigningCredentials = creds,
-            Expires = DateTime.UtcNow.AddMinutes(double.Parse(jwtSettings["ExpiresMinutes"]!)),
+            Expires = DateTime.UtcNow.AddMinutes(double.Parse(expiresMinutes)),
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -41,7 +44,7 @@ public class TokenService(IConfiguration _config) : ITokenService
         return tokenHandler.WriteToken(token);
     }
 
-    public async Task<string> UpdateAsync(ApplicationUser user)
+    public string Update(ApplicationUser user)
     {
         throw new NotImplementedException();
     }

@@ -1,5 +1,6 @@
 ﻿using Api.Dtos;
 using Api.Models;
+using Api.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace Api.Controllers
 {
     [Route("api/account")]
     public class AccountController(
-        //ITokenService _tokenService,
+        ITokenService _tokenService,
         UserManager<ApplicationUser> _userManager) : BaseApiController
     {
         [HttpPost("register")]
@@ -33,8 +34,14 @@ namespace Api.Controllers
                 return ValidationProblem();
             }
 
-            return Ok(dto);
-            //return Ok(user.ToDto(_tokenService));
+            var userDto = new UserDto(
+                Id: user.Id,
+                UserName: user.UserName!,
+                Email: user.Email!,
+                Token: _tokenService.Create(user)
+            );
+
+            return Ok(userDto);
         }
 
         [HttpPost("login")]
@@ -44,8 +51,14 @@ namespace Api.Controllers
             if (user == null || !(await _userManager.CheckPasswordAsync(user, dto.Password)))
                 return Unauthorized("Invalid login");
 
-            return Ok();
-            //return Ok(user.toDto(_tokenService));
+            var userDto = new UserDto(
+                Id: user.Id,
+                UserName: user.UserName!,
+                Email: user.Email!,
+                Token: _tokenService.Create(user)
+            );
+
+            return Ok(userDto);
         }
     }
 }
