@@ -1,10 +1,9 @@
-using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace Api.Models;
 
-public class ApplicationUser
+public class ApplicationUser : IdentityUser
 {
-    public string Id { get; set; } = Guid.NewGuid().ToString();
-    public required string Name { get; set; } = default!;
-    public required string Email { get; set; } = default!;
+    public string? RefreshToken { get; set; }
+    public DateTime? RefreshTokenExpiry { get; set; }
 }

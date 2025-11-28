@@ -1,6 +1,5 @@
 using Api.Data;
 using Api.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +7,7 @@ namespace Api.Controllers;
 
 [Route("api/users")]
 [ApiController]
-public class UsersController(ApplicationDbContext _db) : ControllerBase
+public class UsersController(ApplicationDbContext _db) : BaseApiController
 {
     [HttpGet]
     public async Task<ActionResult<List<ApplicationUser>>> Get()
