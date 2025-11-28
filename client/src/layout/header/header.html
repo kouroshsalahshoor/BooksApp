@@ -1,6 +1,6 @@
-<nav class="navbar bg-primary navbar-expand-lg" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/books">Books Angular 20 App</a>
+    <a class="navbar-brand" href="#">Navbar</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,13 +15,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/books">
-            <i class="fa-solid fa-house-chimney"></i>
-            Home</a
-          >
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="">Link</a>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -34,30 +31,61 @@
             Dropdown
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="">Action</a></li>
-            <li><a class="dropdown-item" href="">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="">Something else here</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li> -->
+        </li>
       </ul>
-      <div class="d-flex gap-3">
-        <a class="btn btn-outline-light" routerLink="/register">
-          <i class="fa-solid fa-user-plus"></i>
-          Register
-        </a>
-        <a class="btn btn-outline-light" routerLink="/login">
-          <i class="fa-solid fa-arrow-right-to-bracket"></i>
-          Login
-        </a>
-        <button class="btn btn-outline-light">
-          <i class="fa-solid fa-power-off"></i>
-          Logout
-        </button>
-      </div>
+
+      @if (isLoggedIn()) {
+      <button class="btn btn-outline-light" (click)="onLogout()">
+        <i class="fa-solid fa-power-off"></i>
+        Logout
+      </button>
+      } @else {
+
+      <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+        <div class="d-md-flex flex-row gap-1">
+          <div>
+            <a class="btn btn-outline-light" routerLink="/register">
+              <i class="fa-solid fa-user-plus"></i>
+              Register
+            </a>
+          </div>
+          <div>
+            <input
+              type="text"
+              class="form-control bg-light text-dark"
+              id="userName"
+              placeholder="User Name"
+              name="userName"
+              [(ngModel)]="model.userName"
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              class="form-control bg-light text-dark"
+              id="password"
+              placeholder="Password"
+              name="password"
+              [(ngModel)]="model.password"
+            />
+          </div>
+          <div>
+            <button class="btn btn-outline-light" type="submit">
+              <i class="fa-solid fa-power-off"></i>
+              Login
+            </button>
+          </div>
+        </div>
+      </form>
+      }
     </div>
   </div>
 </nav>
