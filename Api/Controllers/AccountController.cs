@@ -33,7 +33,7 @@ namespace Api.Controllers
                 return ValidationProblem();
             }
 
-            return Ok();
+            return Ok(dto);
             //return Ok(user.ToDto(_tokenService));
         }
 

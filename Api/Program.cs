@@ -21,6 +21,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(opt =>
     opt.SignIn.RequireConfirmedAccount = false;
 
     opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequireLowercase = false;
+    opt.Password.RequireUppercase = false;
     opt.Password.RequireDigit = false;
     opt.Password.RequiredLength = 1;
 
