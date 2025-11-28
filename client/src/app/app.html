@@ -1,8 +1,8 @@
-<h3>{{ title() }}</h3>
-<button class="btn btn-primary">hello</button>
+<div class="container-fluid app-container">
+  <app-header></app-header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 
-<ul>
-  @for (item of users(); track $index) {
-  <li>{{ item.id }}</li>
-  }
-</ul>
+  <app-footer></app-footer>
+</div>

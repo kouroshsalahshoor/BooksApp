@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { RouterOutlet } from '@angular/router';
+import { Footer } from '../layout/footer/footer';
+import { Header } from '../layout/header/header';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [Header, RouterOutlet, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
