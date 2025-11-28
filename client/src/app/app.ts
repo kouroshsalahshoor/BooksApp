@@ -13,19 +13,20 @@ export class App implements OnInit {
   protected readonly title = signal('Books App');
   protected users = signal<any>([]);
 
-  // async ngOnInit(): void {
   async ngOnInit() {
     this.users.set(await this.getUsers());
-
-    // this.http.get('https://localhost:7000/api/users').subscribe({
-    //   next: (response) => {
-    //     console.log(response);
-    //     return this.users.set(response);
-    //   },
-    //   error: (error) => console.error(error),
-    //   complete: () => console.log('Completed http request'),
-    // });
   }
+
+  // ngOnInit(): void {
+  // this.http.get('https://localhost:7000/api/users').subscribe({
+  //   next: (response) => {
+  //     console.log(response);
+  //     return this.users.set(response);
+  //   },
+  //   error: (error) => console.error(error),
+  //   complete: () => console.log('Completed http request'),
+  // });
+  // }
 
   async getUsers() {
     try {
