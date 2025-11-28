@@ -42,7 +42,9 @@
         </li>
       </ul>
 
-      @if (isLoggedIn()) {
+      @if (accountService.currentUser(); as user) {
+      <span class="navbar-text me-3">Welcome {{ user?.userName }}</span>
+
       <button class="btn btn-outline-light" (click)="onLogout()">
         <i class="fa-solid fa-power-off"></i>
         Logout

@@ -4,6 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { RouterOutlet } from '@angular/router';
 import { Footer } from '../layout/footer/footer';
 import { Header } from '../layout/header/header';
+import { AccountService } from '../services/account-service';
 
 @Component({
   selector: 'app-root',
@@ -13,11 +14,20 @@ import { Header } from '../layout/header/header';
 })
 export class App implements OnInit {
   private http = inject(HttpClient);
+  private accountService = inject(AccountService);
   protected readonly title = signal('Books App');
   protected users = signal<any>([]);
 
   async ngOnInit() {
+    this.setCurrentUser();
     this.users.set(await this.getUsers());
+  }
+
+  setCurrentUser() {
+    const userString = localStorage.getItem('user');
+    if (!userString) return;
+    const user = JSON.parse(userString);
+    this.accountService.currentUser.set(user);
   }
 
   // ngOnInit(): void {

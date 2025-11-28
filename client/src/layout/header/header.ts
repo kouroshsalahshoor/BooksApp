@@ -10,15 +10,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './header.css',
 })
 export class Header {
-  private accountService = inject(AccountService);
+  protected accountService = inject(AccountService);
   protected model: any = {};
-  protected isLoggedIn = signal(false);
 
   onLogin() {
     this.accountService.login(this.model).subscribe({
       next: (result) => {
         // console.log(result);
-        this.isLoggedIn.set(true);
         this.model = {};
       },
       error: (result) => alert(result.message),
@@ -26,6 +24,6 @@ export class Header {
   }
 
   onLogout() {
-    this.isLoggedIn.set(false);
+    this.accountService.logout();
   }
 }
