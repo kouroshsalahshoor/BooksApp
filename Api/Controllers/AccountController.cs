@@ -1,6 +1,7 @@
 ﻿using Api.Dtos;
 using Api.Models;
 using Api.Services.IServices;
+using Api.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,14 +35,7 @@ namespace Api.Controllers
                 return ValidationProblem();
             }
 
-            var userDto = new UserDto(
-                Id: user.Id,
-                UserName: user.UserName!,
-                Email: user.Email!,
-                Token: _tokenService.Create(user)
-            );
-
-            return Ok(userDto);
+            return Ok(user.ToDto(_tokenService));
         }
 
         [HttpPost("login")]
@@ -51,14 +45,7 @@ namespace Api.Controllers
             if (user == null || !(await _userManager.CheckPasswordAsync(user, dto.Password)))
                 return Unauthorized("Invalid login");
 
-            var userDto = new UserDto(
-                Id: user.Id,
-                UserName: user.UserName!,
-                Email: user.Email!,
-                Token: _tokenService.Create(user)
-            );
-
-            return Ok(userDto);
+            return Ok(user.ToDto(_tokenService));
         }
     }
 }
