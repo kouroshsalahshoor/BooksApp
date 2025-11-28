@@ -32,8 +32,12 @@ builder.Services.AddIdentityCore<ApplicationUser>(opt =>
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-var jwtSettings = builder.Configuration.GetSection("Jwt");
-var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
+var jwtSettings = builder.Configuration.GetSection("Jwt") ?? throw new InvalidOperationException("Jwt not found - program.cs");
+var key = jwtSettings["Key"] ?? throw new InvalidOperationException("Key not found - program.cs");
+var issuer = jwtSettings["Issuer"] ?? throw new InvalidOperationException("Issuer not found - program.cs");
+var audience = jwtSettings["Audience"] ?? throw new InvalidOperationException("Audience not found - program.cs");
+
+var securityKey = Encoding.UTF8.GetBytes(key);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -44,12 +48,12 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
+        ValidateIssuer = false,
+        ValidateAudience = false,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSettings["Issuer"],
-        ValidAudience = jwtSettings["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(key)
+        ValidIssuer = issuer,
+        ValidAudience = audience,
+        IssuerSigningKey = new SymmetricSecurityKey(securityKey)
     };
 });
 
@@ -77,10 +81,10 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200", "http://localhost:4200"));
+
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200", "http://localhost:4200"));
 
 app.MapControllers();
 
