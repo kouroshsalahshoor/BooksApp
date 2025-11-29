@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AccountService } from '../../services/account-service';
 import { FormsModule } from '@angular/forms';
 
@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class Header {
   protected accountService = inject(AccountService);
+  protected router = inject(Router);
+
   protected model: any = {};
 
   onLogin() {
@@ -18,6 +20,7 @@ export class Header {
       next: (result) => {
         // console.log(result);
         this.model = {};
+        this.router.navigateByUrl('/');
       },
       error: (result) => alert(result.message),
     });
@@ -25,5 +28,6 @@ export class Header {
 
   onLogout() {
     this.accountService.logout();
+    this.router.navigateByUrl('/');
   }
 }
