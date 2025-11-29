@@ -7,7 +7,7 @@ namespace Api.Controllers;
 
 [Route("api/users")]
 [ApiController]
-public class UsersController(ApplicationDbContext _db) : BaseApiController
+public class UsersController(ApplicationDbContext _db) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<List<ApplicationUser>>> Get()

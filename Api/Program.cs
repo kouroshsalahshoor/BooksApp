@@ -1,5 +1,7 @@
 using Api.Data;
 using Api.Models;
+using Api.Repositories;
+using Api.Repositories.IRepositories;
 using Api.Services;
 using Api.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -68,6 +70,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 var app = builder.Build();
 

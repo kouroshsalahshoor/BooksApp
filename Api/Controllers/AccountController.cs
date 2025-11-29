@@ -8,9 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers
 {
     [Route("api/account")]
+    [ApiController]
     public class AccountController(
         ITokenService _tokenService,
-        UserManager<ApplicationUser> _userManager) : BaseApiController
+        UserManager<ApplicationUser> _userManager) : ControllerBase
     {
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto dto)
