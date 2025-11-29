@@ -13,13 +13,27 @@ export const routes: Routes = [
 
   { path: '', component: BooksList, pathMatch: 'full' },
 
-  { path: 'books', component: BooksList },
-  { path: 'book/add', component: BookForm, canActivate: [authGuard] },
-  { path: 'book/edit/:id', component: BookForm, canActivate: [authGuard] },
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [authGuard],
+    children: [
+      { path: 'book/add', component: BookForm },
+      { path: 'book/edit/:id', component: BookForm },
 
-  { path: 'quotes', component: QuotesList, canActivate: [authGuard] },
-  { path: 'quote/add', component: QuoteForm, canActivate: [authGuard] },
-  { path: 'quote/edit/:id', component: QuoteForm, canActivate: [authGuard] },
+      { path: 'quotes', component: QuotesList },
+      { path: 'quote/add', component: QuoteForm },
+      { path: 'quote/edit/:id', component: QuoteForm },
+    ],
+  },
+
+  { path: 'books', component: BooksList },
+  // { path: 'book/add', component: BookForm, canActivate: [authGuard] },
+  // { path: 'book/edit/:id', component: BookForm, canActivate: [authGuard] },
+
+  // { path: 'quotes', component: QuotesList, canActivate: [authGuard] },
+  // { path: 'quote/add', component: QuoteForm, canActivate: [authGuard] },
+  // { path: 'quote/edit/:id', component: QuoteForm, canActivate: [authGuard] },
 
   // { path: '', redirectTo: '/books', pathMatch: 'full' },
   { path: '**', redirectTo: '/' },

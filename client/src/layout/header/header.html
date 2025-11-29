@@ -26,6 +26,8 @@
             Home
           </a>
         </li>
+        @if (accountService.currentUser()) {
+
         <li class="nav-item">
           <a
             class="nav-link"
@@ -44,6 +46,7 @@
             Quotes
           </a>
         </li>
+
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
@@ -68,6 +71,7 @@
                 Books
               </a>
             </li>
+
             <li><hr class="dropdown-divider" /></li>
             <li>
               <a class="dropdown-item" routerLink="/quotes">
@@ -77,6 +81,7 @@
             </li>
           </ul>
         </li>
+        }
       </ul>
 
       @if (accountService.currentUser(); as user) {
