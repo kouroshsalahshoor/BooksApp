@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Book Quotes</a>
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Book Quotes App</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,10 +15,34 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/">
-            <i class="fa-regular fa-house"></i>
-            Home</a
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
           >
+            <i class="fa-regular fa-house"></i>
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="/books"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="fa-solid fa-book"></i>
+            Books
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/quotes" routerLinkActive="active">
+            <i class="fa-solid fa-quote-left"></i>
+            Quotes
+          </a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
@@ -35,18 +59,18 @@
             aria-expanded="false"
           >
             Pages
-            <i class="fa-solid fa-list"></i>
+            <i class="fa-solid fa-bars"></i>
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href="/books">
+              <a class="dropdown-item" routerLink="/books" routerLinkActive="active">
                 <i class="fa-solid fa-book"></i>
                 Books
               </a>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" href="/quotes">
+              <a class="dropdown-item" routerLink="/quotes">
                 <i class="fa-solid fa-quote-left"></i>
                 Quotes
               </a>
