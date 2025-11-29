@@ -14,6 +14,7 @@ export class Header {
   protected router = inject(Router);
 
   protected model: any = {};
+  protected title=signal('Book Quotes App')
 
   onLogin() {
     this.accountService.login(this.model).subscribe({

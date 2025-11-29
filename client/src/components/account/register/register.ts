@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { registerModel } from '../../../types/registerModel';
 import { AccountService } from '../../../services/account-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ import { AccountService } from '../../../services/account-service';
 })
 export class Register {
   private service = inject(AccountService);
+  private router = inject(Router);
   protected model = {} as registerModel;
 
   onSubmit() {
@@ -27,5 +29,6 @@ export class Register {
 
   cancel() {
     console.log('cancelled');
+    this.router.navigate(['/']);
   }
 }
