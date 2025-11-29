@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { Footer } from '../layout/footer/footer';
 import { Header } from '../layout/header/header';
 import { AccountService } from '../services/account-service';
+import { UserModel } from '../types/user';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class App implements OnInit {
   private http = inject(HttpClient);
   private accountService = inject(AccountService);
   protected readonly title = signal('Books App');
-  protected users = signal<any>([]);
+  protected users = signal<UserModel[]>([]);
 
   async ngOnInit() {
     this.setCurrentUser();
@@ -43,7 +44,7 @@ export class App implements OnInit {
 
   async getUsers() {
     try {
-      return lastValueFrom(this.http.get('https://localhost:7000/api/users'));
+      return lastValueFrom(this.http.get<UserModel[]>('https://localhost:7000/api/users'));
     } catch (error) {
       console.log(error);
       throw error;

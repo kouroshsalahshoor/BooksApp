@@ -32,17 +32,20 @@
         placeholder=""
         [(ngModel)]="model.password"
         name="password"
+        autocomplete
       />
       <label for="password">Password</label>
     </div>
 
-    <button type="submit" class="btn btn-primary float-end mx-2">
-      <i class="fa-regular fa-paper-plane"></i>
-      Submit
-    </button>
-    <a class="btn btn-light float-end mx-2" (click)="cancel()">
-      <i class="fa-solid fa-ban"></i>
-      Cancel
-    </a>
+    <div class="d-flex gap-3 justify-content-end">
+      <button type="button" class="btn btn-light" (click)="cancel()">
+        <i class="fa-solid fa-ban"></i>
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-regular fa-paper-plane"></i>
+        Submit
+      </button>
+    </div>
   </form>
 </div>

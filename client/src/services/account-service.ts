@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { UserModel } from '../types/user';
 import { tap } from 'rxjs';
+import { loginModel } from '../types/loginModel';
+import { registerModel } from '../types/registerModel';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +14,26 @@ export class AccountService {
 
   baseUrl = 'https://localhost:7000/api/account/';
 
-  login(model: any) {
-    return this.http.post<UserModel>(this.baseUrl + 'login', model).pipe(
-      tap((user: UserModel) => {
+  register(model: registerModel) {
+    return this.http.post<UserModel>(this.baseUrl + 'register', model).pipe(
+      tap((user) => {
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUser.set(user);
+          this.setCurrentUser(user);
+        }
+      })
+    );
+  }
+
+  private setCurrentUser(user: UserModel) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUser.set(user);
+  }
+
+  login(model: loginModel) {
+    return this.http.post<UserModel>(this.baseUrl + 'login', model).pipe(
+      tap((user) => {
+        if (user) {
+          this.setCurrentUser(user);
         }
       })
     );
