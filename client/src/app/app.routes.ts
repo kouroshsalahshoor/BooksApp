@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 
+  { path: '', component: BooksList, pathMatch: 'full' },
   { path: 'books', component: BooksList },
   { path: 'book/add', component: BookForm },
   { path: 'book/edit/:id', component: BookForm },
@@ -18,6 +19,6 @@ export const routes: Routes = [
   { path: 'quote/add', component: QuoteForm },
   { path: 'quote/edit/:id', component: QuoteForm },
 
-  { path: '', redirectTo: '/books', pathMatch: 'full' },
-  { path: '**', redirectTo: '/books' },
+  // { path: '', redirectTo: '/books', pathMatch: 'full' },
+  { path: '**', redirectTo: '/' },
 ];
