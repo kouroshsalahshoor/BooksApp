@@ -47,7 +47,7 @@ public class BookRepository(ApplicationDbContext _db) : IBookRepository
 
     public async Task<bool> Exists(string title)
     {
-        return await _db.Books.AnyAsync(x => x.Title == title);
+        return await _db.Books.AnyAsync(x => x.Title.ToLower() == title.ToLower());
     }
 
     public async Task<bool> Save()

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Api.Data;
 using Api.Models;
 using Api.Repositories.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers;
 
 [Route("api/Books")]
 [ApiController]
+//[Authorize]
 public class BooksController(IBookRepository _repository) : ControllerBase
 {
     [HttpGet]
@@ -30,7 +30,7 @@ public class BooksController(IBookRepository _repository) : ControllerBase
     public async Task<ActionResult<Book>> Post(Book model)
     {
         if (await _repository.Exists(model.Title))
-            return Conflict("A book with the same title already exists");
+            return BadRequest("A book with the same title already exists");
 
         await _repository.Create(model);
 

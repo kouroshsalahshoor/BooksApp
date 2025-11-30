@@ -4,6 +4,7 @@ import { UserModel } from '../types/user';
 import { tap } from 'rxjs';
 import { loginModel } from '../types/loginModel';
 import { registerModel } from '../types/registerModel';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AccountService {
   private http = inject(HttpClient);
   currentUser = signal<UserModel | null>(null);
 
-  baseUrl = 'https://localhost:7000/api/account/';
+  private baseUrl = environment.apiUrl + 'account/';
 
   register(model: registerModel) {
     return this.http.post<UserModel>(this.baseUrl + 'register', model).pipe(
@@ -27,6 +28,7 @@ export class AccountService {
   private setCurrentUser(user: UserModel) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser.set(user);
+    // console.log('set currentuser:' + JSON.stringify(user));
   }
 
   login(model: loginModel) {

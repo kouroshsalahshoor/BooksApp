@@ -16,6 +16,7 @@ namespace Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto dto)
         {
+
             var user = new ApplicationUser
             {
                 UserName = dto.UserName,

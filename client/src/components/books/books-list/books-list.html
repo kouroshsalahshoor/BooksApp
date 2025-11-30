@@ -1,1 +1,38 @@
-<p>books-list works!</p>
+<div class="container">
+  <h3>Books</h3>
+  <hr />
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">published Date</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of items$ | async; track item.id) {
+      <tr>
+        <th scope="row">{{ item.id }}</th>
+        <td>{{ item.title }}</td>
+        <td>{{ item.author }}</td>
+        <td>{{ item.publishedDate }}</td>
+        <td>
+          <div class="d-flex gap-2 justify-content-end">
+            <button class="btn btn-warning text-light" title="edit">
+              <i class="fa-solid fa-pencil"></i>
+              Edit
+            </button>
+            <button class="btn btn-danger" title="delete">
+              <i class="fa-solid fa-trash-can"></i>
+              Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
