@@ -7,10 +7,11 @@ namespace Api.Controllers;
 
 [Route("api/Books")]
 [ApiController]
-//[Authorize]
+[Authorize]
 public class BooksController(IBookRepository _repository) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<List<Book>>> Get()
     {
         return await _repository.Get();
@@ -33,9 +34,7 @@ public class BooksController(IBookRepository _repository) : ControllerBase
             return BadRequest("A book with the same title already exists");
 
         await _repository.Create(model);
-
         await _repository.Save();
-
         return CreatedAtRoute("GetBook", new { id = model.Id }, model);
     }
 
@@ -49,9 +48,7 @@ public class BooksController(IBookRepository _repository) : ControllerBase
             return NotFound();
 
         _repository.Update(model);
-
         await _repository.Save();
-
         return NoContent();
     }
 
@@ -63,7 +60,7 @@ public class BooksController(IBookRepository _repository) : ControllerBase
             return NotFound();
 
         _repository.Delete(model);
-
+        await _repository.Save();
         return NoContent();
     }
 }

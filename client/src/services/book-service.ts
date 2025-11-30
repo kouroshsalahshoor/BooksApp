@@ -9,7 +9,7 @@ import { AccountService } from './account-service';
 })
 export class BookService {
   private http = inject(HttpClient);
-  private accountService = inject(AccountService);
+  // private accountService = inject(AccountService);
   private apiUrl = environment.apiUrl + 'books';
 
   get() {
