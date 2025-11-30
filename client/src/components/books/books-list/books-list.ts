@@ -1,7 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { BookService } from '../../../services/book-service';
-import { Observable } from 'rxjs';
-import { Book } from '../../../types/book';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -13,11 +11,22 @@ import { RouterLink } from '@angular/router';
 })
 export class BooksList {
   private service = inject(BookService);
-  protected items$: Observable<Book[]>;
+  protected items$ = this.service.items$;
 
   constructor() {
-    this.items$ = this.service.get();
+    this.service.get();
   }
 
-  onDelete() {}
+  onDelete(id: number) {
+    if (id) {
+      if (confirm('Are you sure you want to delete this item?')) {
+        this.service.delete(id).subscribe({
+          next: () => {
+            this.service.get();
+          },
+          error: (response) => console.log('Error deleting book in list', response),
+        });
+      }
+    }
+  }
 }

@@ -67,12 +67,12 @@ export class BookForm implements OnInit {
 
         this.service.update(this.id, model).subscribe({
           next: () => this.router.navigate(['/books']),
-          error: (response) => console.log('Error updating book form', response),
+          error: (response) => console.log('Error updating book in form', response),
         });
       } else {
         this.service.create(model).subscribe({
           next: () => this.router.navigate(['/books']),
-          error: (response) => console.log('Error creating book form', response),
+          error: (response) => console.log('Error creating book in form', response),
         });
       }
     }

@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Book, BookCreateUpdateModel } from '../types/book';
 import { AccountService } from './account-service';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,13 @@ export class BookService {
   // private accountService = inject(AccountService);
   private apiUrl = environment.apiUrl + 'books';
 
+  private itemsSubject = new BehaviorSubject<Book[]>([]);
+  items$ = this.itemsSubject.asObservable();
+
   get() {
-    return this.http.get<Book[]>(this.apiUrl);
+    return this.http.get<Book[]>(this.apiUrl).subscribe((items) => {
+      this.itemsSubject.next(items);
+    });
     // return this.http.get<Book[]>(this.apiUrl, this.getHttpOptions());
   }
 
@@ -32,7 +38,7 @@ export class BookService {
   }
 
   delete(id: number) {
-    return this.http.delete(this.apiUrl + '/' + id);
+    return this.http.delete(this.apiUrl + '/' + id).pipe(tap(() => this.get()));
   }
 
   // getHttpOptions() {
