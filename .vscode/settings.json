@@ -1,1 +1,4 @@
-{}
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/d09c1185-fa22-47bc-ba17-b03de4f35247/resourceGroups/kouroshs-free-rg/providers/Microsoft.Web/sites/bookquotesapp",
+    "appService.deploySubpath": "bin\\Publish"
+}

@@ -34,10 +34,12 @@ builder.Services.AddIdentityCore<ApplicationUser>(opt =>
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-var jwtSettings = builder.Configuration.GetSection("Jwt") ?? throw new InvalidOperationException("Jwt not found - program.cs");
-var key = jwtSettings["Key"] ?? throw new InvalidOperationException("Key not found - program.cs");
-var issuer = jwtSettings["Issuer"] ?? throw new InvalidOperationException("Issuer not found - program.cs");
-var audience = jwtSettings["Audience"] ?? throw new InvalidOperationException("Audience not found - program.cs");
+var key = builder.Configuration.GetSection("JwtKey").Value ?? throw new InvalidOperationException("Key not found - program.cs");
+
+//var jwtSettings = builder.Configuration.GetSection("Jwt") ?? throw new InvalidOperationException("Jwt not found - program.cs");
+//var key = jwtSettings["Key"] ?? throw new InvalidOperationException("Key not found - program.cs");
+//var issuer = jwtSettings["Issuer"] ?? throw new InvalidOperationException("Issuer not found - program.cs");
+//var audience = jwtSettings["Audience"] ?? throw new InvalidOperationException("Audience not found - program.cs");
 
 var securityKey = Encoding.UTF8.GetBytes(key);
 
@@ -53,8 +55,8 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuer = false,
         ValidateAudience = false,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = issuer,
-        ValidAudience = audience,
+        //ValidIssuer = issuer,
+        //ValidAudience = audience,
         IssuerSigningKey = new SymmetricSecurityKey(securityKey)
     };
 });
