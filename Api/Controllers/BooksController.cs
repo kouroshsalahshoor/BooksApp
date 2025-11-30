@@ -2,12 +2,13 @@
 using Api.Models;
 using Api.Repositories.IRepositories;
 using Microsoft.AspNetCore.Authorization;
+using Api.Dtos;
 
 namespace Api.Controllers;
 
 [Route("api/Books")]
 [ApiController]
-[Authorize]
+//[Authorize]
 public class BooksController(IBookRepository _repository) : ControllerBase
 {
     [HttpGet]
@@ -28,10 +29,23 @@ public class BooksController(IBookRepository _repository) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Book>> Post(Book model)
+    public async Task<ActionResult<Book>> Post(BookCreateDto dto)
     {
-        if (await _repository.Exists(model.Title))
+        if (await _repository.Exists(dto.Title))
             return BadRequest("A book with the same title already exists");
+
+        var now = DateTime.UtcNow;
+        var model = new Book
+        {
+            Title = dto.Title,
+            Author = dto.Author,
+            PublishedDate = DateOnly.Parse(dto.PublishedDate),
+
+            CreatedAt = now,
+            CreatedBy="user",
+            UpdatedAt=now,
+            UpdatedBy="user"
+        };
 
         await _repository.Create(model);
         await _repository.Save();

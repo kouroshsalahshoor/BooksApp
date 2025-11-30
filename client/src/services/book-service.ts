@@ -22,6 +22,19 @@ export class BookService {
     // return this.http.get<Book>(this.apiUrl + '/' + id, this.getHttpOptions());
   }
 
+  create(model: Book) {
+    console.log('book service post: ', model);
+    return this.http.post(this.apiUrl, model);
+  }
+
+  update(id: number, model: Book) {
+    return this.http.put(this.apiUrl + '/' + id, model);
+  }
+
+  delete(id: number) {
+    return this.http.delete(this.apiUrl + '/' + id);
+  }
+
   // getHttpOptions() {
   //   return {
   //     headers: {
