@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AccountService } from '../../services/account-service';
 import { FormsModule } from '@angular/forms';
@@ -9,12 +9,17 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {
+export class Header implements OnInit {
   protected accountService = inject(AccountService);
   protected router = inject(Router);
 
   protected model: any = {};
-  protected title=signal('Book Quotes App')
+  protected title = signal('Book Quotes App');
+  protected selectedTheme = signal(localStorage.getItem('theme') || 'light');
+
+  ngOnInit(): void {
+    document.documentElement.setAttribute('data-bs-theme', this.selectedTheme());
+  }
 
   onLogin() {
     this.accountService.login(this.model).subscribe({
@@ -30,5 +35,12 @@ export class Header {
   onLogout() {
     this.accountService.logout();
     this.router.navigateByUrl('/');
+  }
+
+  toggleTheme() {
+    const newTheme = this.selectedTheme() === 'light' ? 'dark' : 'light';
+    this.selectedTheme.set(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-bs-theme', newTheme);
   }
 }

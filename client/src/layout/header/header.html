@@ -131,6 +131,15 @@
         </div>
       </form>
       }
+
+      <button class="btn btn-outline-light mx-1" (click)="toggleTheme()">
+        @if (this.selectedTheme() === 'light') {
+        <i class="fa-regular fa-moon" title="click for dark theme"></i>
+        } @else {
+        <i class="fa-solid fa-sun" title="click for light theme"></i>
+        }
+        <!-- {{ selectedTheme() }} -->
+      </button>
     </div>
   </div>
 </nav>
