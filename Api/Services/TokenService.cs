@@ -11,9 +11,9 @@ public class TokenService(IConfiguration _config) : ITokenService
 {
     public string Create(ApplicationUser user)
     {
-        var jwtSettings = _config.GetSection("Jwt") ?? throw new Exception("Can't read Jwt");
-
-        var key = jwtSettings["Key"] ?? throw new Exception("Can't read TokenKey");
+        var key = _config["JwtKey"] ?? throw new Exception("Can't read JwtKey");
+        //var jwtSettings = _config.GetSection("Jwt") ?? throw new Exception("Can't read Jwt");
+        //var key = jwtSettings["Key"] ?? throw new Exception("Can't read TokenKey");
         if (key.Length < 64) throw new Exception("Token key must be at least 64 characters long");
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
@@ -26,9 +26,12 @@ public class TokenService(IConfiguration _config) : ITokenService
             new (ClaimTypes.Email, user.Email!),
         };
 
-        var issuer = jwtSettings["Issuer"] ?? throw new Exception("Can't read Issuer");
-        var audience = jwtSettings["Audience"] ?? throw new Exception("Can't read Audience");
-        var expiresMinutes = jwtSettings["ExpiresMinutes"] ?? throw new Exception("Can't read ExpiresMinutes");
+        var issuer = "BooksApi";
+        var audience = "BooksClient";
+        var expiresMinutes = "60";
+        //var issuer = jwtSettings["Issuer"] ?? throw new Exception("Can't read Issuer");
+        //var audience = jwtSettings["Audience"] ?? throw new Exception("Can't read Audience");
+        //var expiresMinutes = jwtSettings["ExpiresMinutes"] ?? throw new Exception("Can't read ExpiresMinutes");
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
