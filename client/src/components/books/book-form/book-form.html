@@ -1,4 +1,4 @@
-<h3>Add Book</h3>
+<h3>{{ id > 0 ? 'Edit' : 'Add' }} Book</h3>
 <hr />
 
 <form [formGroup]="fg" (ngSubmit)="onSubmit()">

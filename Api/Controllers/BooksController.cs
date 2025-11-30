@@ -29,7 +29,7 @@ public class BooksController(IBookRepository _repository) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Book>> Post(BookCreateDto dto)
+    public async Task<ActionResult<Book>> Post(BookCreateUpdateDto dto)
     {
         if (await _repository.Exists(dto.Title))
             return BadRequest("A book with the same title already exists");
@@ -37,29 +37,40 @@ public class BooksController(IBookRepository _repository) : ControllerBase
         var now = DateTime.UtcNow;
         var model = new Book
         {
+            Id = 0,
             Title = dto.Title,
             Author = dto.Author,
             PublishedDate = DateOnly.Parse(dto.PublishedDate),
 
             CreatedAt = now,
-            CreatedBy="user",
-            UpdatedAt=now,
-            UpdatedBy="user"
+            CreatedBy = "user",
+            UpdatedAt = now,
+            UpdatedBy = "user"
         };
 
         await _repository.Create(model);
         await _repository.Save();
+
         return CreatedAtRoute("GetBook", new { id = model.Id }, model);
     }
 
     [HttpPut("{id:int}")]
-    public async Task<ActionResult> Put(int id, Book model)
+    public async Task<ActionResult> Put(int id, BookCreateUpdateDto dto)
     {
-        if (id != model.Id)
+        if (id != dto.Id)
             return BadRequest();
 
-        if (await _repository.Exists(model.Id) == false)
+        var now = DateTime.UtcNow;
+        var model = await _repository.Get(id);
+        if (model == null)
             return NotFound();
+
+        model.Title = dto.Title;
+        model.Author = dto.Author;
+        model.PublishedDate = DateOnly.Parse(dto.PublishedDate);
+
+        model.UpdatedAt = now;
+        model.UpdatedBy = "user";
 
         _repository.Update(model);
         await _repository.Save();

@@ -9,3 +9,10 @@ export type Book = {
   updatedBy: string;
   updatedAt: string;
 };
+
+export type BookCreateUpdateModel = {
+  id: number;
+  title: string;
+  author: string;
+  publishedDate: string;
+};
