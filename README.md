@@ -1,0 +1,21 @@
+# BookQuotesApp
+
+- [x] Angular 20 client
+- [x] .NET 9 C# API
+- [x] Responsiv (all devices)
+- [x] CRUD Books
+- [ ] CRUD Quotes
+- [x] JWT (JSON Web Tokens) Identity
+- [x] Bootstrap
+- [x] Font Awesome
+- [x] Favorite Quotes
+- [x] Login
+- [x] Register
+- [ ] User can see own referenses
+- [x] Localstorage
+- [ ] Backend authentication for CRUDs
+- [ ] 5 favorite quotes page
+- [x] UI Menu collapsable
+- [x] light/dark UI themes
+- [x] Published on Netlify, Vercel or Azure Static Web Apps
+- [x] GitHub
