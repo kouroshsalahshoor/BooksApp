@@ -21,3 +21,4 @@
 - [x] light/dark UI themes
 - [x] Published on Netlify, Vercel or Azure Static Web Apps [https://bookquotesapp.azurewebsites.net/](https://bookquotesapp.azurewebsites.net/) 
 - [x] GitHub [https://github.com/kouroshsalahshoor/BooksApp](https://github.com/kouroshsalahshoor/BooksApp)
+- [x] CI / CD Github Actions
