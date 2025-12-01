@@ -14,7 +14,7 @@ export class Header implements OnInit {
   protected router = inject(Router);
 
   protected model: any = {};
-  protected title = signal('Book Quotes App');
+  protected title = signal('Book Quotes App (Angular 20)');
   protected selectedTheme = signal(localStorage.getItem('theme') || 'light');
 
   ngOnInit(): void {
