@@ -16,7 +16,7 @@
 - [ ] Backend authentication for CRUDs
 - [ ] 5 favorite quotes page
 - [ ] Seed db
-- [ ] applying migrations at api start
+- [x] applying migrations at api start
 - [x] UI Menu collapsable
 - [x] light/dark UI themes
 - [x] Published on Netlify, Vercel or Azure Static Web Apps [https://bookquotesapp.azurewebsites.net/](https://bookquotesapp.azurewebsites.net/) 
