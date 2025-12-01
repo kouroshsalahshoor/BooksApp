@@ -98,19 +98,19 @@ app.UseStaticFiles();
 app.MapControllers();
 app.MapFallbackToController("Index", "Fallback");
 
-//using var scope = app.Services.CreateScope();
-//var services = scope.ServiceProvider;
-//try
-//{
-//    var db = services.GetRequiredService<ApplicationDbContext>();
-    //var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-//    await db.Database.MigrateAsync();
-//    //await Seed.Execute(db);
-//}
-//catch (Exception ex)
-//{
-//    var logger = services.GetRequiredService<ILogger<Program>>();
-//    logger.LogError(ex, "Error at Seeding data");
-//}
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+try
+{
+    var db = services.GetRequiredService<ApplicationDbContext>();
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    await db.Database.MigrateAsync();
+    //await Seed.Execute(db);
+}
+catch (Exception ex)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "Error at Seeding data");
+}
 
 app.Run();
