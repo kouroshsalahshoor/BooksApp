@@ -26,3 +26,4 @@
 - [ ] images
 - [ ] drag and drop
 - [ ] roles
+- [ ] loading
