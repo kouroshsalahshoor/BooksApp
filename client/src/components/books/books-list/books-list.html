@@ -9,11 +9,12 @@
         <th scope="col">Title</th>
         <th scope="col">Author</th>
         <th scope="col">published Date</th>
+        <th scope="col" class="text-end">Quotes</th>
         <th scope="col">
           <div class="d-flex gap-2 justify-content-end">
             <a class="btn btn-primary" title="add" routerLink="/book/add">
               <i class="fa-regular fa-square-plus"></i>
-              Add
+              Add Book
             </a>
           </div>
         </th>
@@ -28,17 +29,29 @@
         <td>{{ item.publishedDate }}</td>
         <td>
           <div class="d-flex gap-2 justify-content-end">
+            <a class="btn btn-info text-light" title="add quote" routerLink="/quotes/{{ item.id }}">
+              <i class="fa-solid fa-list"></i>
+              Show Quotes
+            </a>
+            <!-- <button class="btn btn-primary" title="add quote" routerLink="/quote/add/{{ item.id }}">
+              <i class="fa-regular fa-square-plus"></i>
+              Add Quote
+            </button> -->
+          </div>
+        </td>
+        <td>
+          <div class="d-flex gap-2 justify-content-end">
             <a
               class="btn btn-warning text-light"
               title="edit"
               routerLink="/book/edit/{{ item.id }}"
             >
               <i class="fa-solid fa-pencil"></i>
-              Edit
+              Edit Book
             </a>
             <button class="btn btn-danger" title="delete" (click)="onDelete(item.id)">
               <i class="fa-solid fa-trash-can"></i>
-              Delete
+              Delete Book
             </button>
           </div>
         </td>

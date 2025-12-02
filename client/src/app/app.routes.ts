@@ -21,8 +21,8 @@ export const routes: Routes = [
       { path: 'book/add', component: BookForm },
       { path: 'book/edit/:id', component: BookForm },
 
-      { path: 'quotes', component: QuotesList },
-      { path: 'quote/add', component: QuoteForm },
+      { path: 'quotes/:bookId', component: QuotesList },
+      { path: 'quote/add/:bookId', component: QuoteForm },
       { path: 'quote/edit/:id', component: QuoteForm },
     ],
   },
