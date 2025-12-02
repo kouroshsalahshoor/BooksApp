@@ -35,7 +35,7 @@ export class QuoteService {
 
   delete(bookId: number, id: number) {
     return this.http
-      .delete(this.apiUrl + '/' + bookId + '/quotes/' + id)
+      .delete(this.apiUrl + bookId + '/quotes/' + id)
       .pipe(tap(() => this.get(bookId)));
   }
 }

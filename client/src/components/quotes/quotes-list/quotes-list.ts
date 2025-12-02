@@ -33,8 +33,9 @@ export class QuotesList implements OnInit {
         this.service.delete(bookId, id).subscribe({
           next: () => {
             this.service.get(bookId);
+            // this.service.get(bookId);
           },
-          error: (response) => console.log('Error deleting book in list', response),
+          error: (response) => console.log('Error deleting in list', response),
         });
       }
     }

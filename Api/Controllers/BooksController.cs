@@ -9,7 +9,7 @@ namespace Api.Controllers;
 [Route("api/Books")]
 [ApiController]
 //[Authorize]
-public class BooksController(IBookRepository _repository) : ControllerBase
+public class BooksController(IBookRepository _repository, IQuoteRepository _quoteRepository) : ControllerBase
 {
     [HttpGet]
     [AllowAnonymous]
@@ -83,6 +83,15 @@ public class BooksController(IBookRepository _repository) : ControllerBase
         var model = await _repository.Get(id);
         if (model == null)
             return NotFound();
+
+        var items = await _quoteRepository.Get(id);
+        if (items != null)
+        {
+            foreach (var item in items)
+            {
+                _quoteRepository.Delete(item);
+            }
+        }
 
         _repository.Delete(model);
         await _repository.Save();

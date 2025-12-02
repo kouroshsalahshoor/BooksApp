@@ -23,7 +23,7 @@ export const routes: Routes = [
 
       { path: 'quotes/:bookId', component: QuotesList },
       { path: 'quote/add/:bookId', component: QuoteForm },
-      { path: 'quote/edit/:id', component: QuoteForm },
+      { path: 'quote/edit/:bookId/:id', component: QuoteForm },
     ],
   },
 
