@@ -21,9 +21,9 @@ public class BooksController(IBookRepository _repository) : ControllerBase
     [HttpGet("{id:int}", Name = "GetBook")]
     public async Task<ActionResult<Book>> Get(int id)
     {
+        if (id <= 0) { return BadRequest(); }
         var model = await _repository.Get(id);
-        if (model == null)
-            return NotFound();
+        if (model == null) return NotFound();
 
         return Ok(model);
     }

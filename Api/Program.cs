@@ -74,6 +74,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
 
 var app = builder.Build();
 
