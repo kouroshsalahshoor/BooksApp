@@ -19,6 +19,14 @@ public class QuotesController(IQuoteRepository _repository) : ControllerBase
         return await _repository.Get(bookId);
     }
 
+    [HttpGet("/GetNumberOfFavorites")]
+    [AllowAnonymous]
+    public async Task<ActionResult<int>> GetNumberOfFavorites(int bookId)
+    {
+        if (bookId <= 0) { return BadRequest(); }
+        return await _repository.GetNumberOfFavorites(bookId);
+    }
+
     [HttpGet("{id:int}", Name = "GetQuote")]
     public async Task<ActionResult<Book>> Get(int bookId, int id)
     {
@@ -67,6 +75,7 @@ public class QuotesController(IQuoteRepository _repository) : ControllerBase
         model.PageNumber = dto.PageNumber;
         model.RowNumber = dto.RowNumber;
         model.BookId = dto.BookId;
+        model.IsFavorite = dto.isFavorite;
 
         model.UpdatedAt = now;
         model.UpdatedBy = "user";
