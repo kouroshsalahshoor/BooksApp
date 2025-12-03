@@ -26,6 +26,7 @@ export class QuoteForm implements OnInit {
       text: ['', Validators.required],
       pageNumber: ['', Validators.required],
       rowNumber: ['', Validators.required],
+      isFavorite: [false],
     });
   }
 
@@ -44,6 +45,7 @@ export class QuoteForm implements OnInit {
             text: response.text,
             pageNumber: response.pageNumber,
             rowNumber: response.rowNumber,
+            isFavorite: response.isFavorite,
           });
         },
         error: (response) => console.log('Error loading form', response),
@@ -61,6 +63,7 @@ export class QuoteForm implements OnInit {
         text: formValue.text,
         pageNumber: formValue.pageNumber,
         rowNumber: formValue.rowNumber,
+        isFavorite: formValue.isFavorite,
         bookId: this.bookId,
       };
 

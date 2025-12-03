@@ -19,12 +19,11 @@ public class QuotesController(IQuoteRepository _repository) : ControllerBase
         return await _repository.Get(bookId);
     }
 
-    [HttpGet("/GetNumberOfFavorites")]
+    [HttpGet("/GetFiveFavorites")]
     [AllowAnonymous]
-    public async Task<ActionResult<int>> GetNumberOfFavorites(int bookId)
+    public async Task<ActionResult<List<Quote>>> GetNumberOfFavorites()
     {
-        if (bookId <= 0) { return BadRequest(); }
-        return await _repository.GetNumberOfFavorites(bookId);
+        return await _repository.GetFiveFavorites();
     }
 
     [HttpGet("{id:int}", Name = "GetQuote")]

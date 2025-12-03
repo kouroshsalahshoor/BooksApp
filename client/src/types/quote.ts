@@ -4,6 +4,7 @@ export type QuoteModel = {
   pageNumber: string;
   rowNumber: string;
   bookId: number;
+  isFavorite: boolean;
   createdBy: string;
   createdAt: string;
   updatedBy: string;
@@ -15,5 +16,6 @@ export type QuoteCreateUpdateModel = {
   text: string;
   pageNumber: string;
   rowNumber: string;
+  isFavorite: boolean;
   bookId: number;
 };

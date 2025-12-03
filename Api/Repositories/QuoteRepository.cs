@@ -13,9 +13,9 @@ public class QuoteRepository(ApplicationDbContext _db) : IQuoteRepository
         return await _db.Quotes.Where(x=> x.BookId == bookId).ToListAsync();
     }
 
-    public async Task<int> GetNumberOfFavorites(int bookId)
+    public async Task<List<Quote>> GetFiveFavorites()
     {
-        return await _db.Quotes.CountAsync(x => x.BookId == bookId && x.IsFavorite == true);
+        return await _db.Quotes.Where(x => x.IsFavorite == true).Take(5).ToListAsync();
     }
 
     public async Task<Quote?> Get(int bookId, int id)

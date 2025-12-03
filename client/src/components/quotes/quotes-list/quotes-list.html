@@ -9,6 +9,7 @@
         <th scope="col">Text</th>
         <th scope="col">Page Number</th>
         <th scope="col">Row Number</th>
+        <th scope="col">Is Favorite</th>
         <th scope="col">
           <div class="d-flex gap-2 justify-content-end">
             <a class="btn btn-light" title="books" routerLink="/book">
@@ -30,6 +31,7 @@
         <td>{{ item.text }}</td>
         <td>{{ item.pageNumber }}</td>
         <td>{{ item.rowNumber }}</td>
+        <td>{{ item.isFavorite }}</td>
         <td>
           <div class="d-flex gap-2 justify-content-end">
             <a
