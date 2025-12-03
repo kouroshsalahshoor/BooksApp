@@ -21,6 +21,12 @@ export class QuoteService {
     });
   }
 
+  getFiveFavorites() {
+    return this.http.get<QuoteModel[]>('/GetFiveFavorites').subscribe((items) => {
+      this.itemsSubject.next(items);
+    });
+  }
+
   getById(bookId: number, id: number) {
     return this.http.get<QuoteModel>(this.apiUrl + bookId + '/quotes/' + id);
   }

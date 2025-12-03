@@ -28,6 +28,7 @@ export const routes: Routes = [
   },
 
   { path: 'books', component: BooksList },
+  { path: 'quotes/favorites', component: QuotesList },
   // { path: 'book/add', component: BookForm, canActivate: [authGuard] },
   // { path: 'book/edit/:id', component: BookForm, canActivate: [authGuard] },
 

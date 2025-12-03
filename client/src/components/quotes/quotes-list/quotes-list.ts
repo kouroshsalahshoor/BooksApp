@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { QuoteService } from '../../../services/quote-service';
 
 @Component({
@@ -11,11 +11,13 @@ import { QuoteService } from '../../../services/quote-service';
 })
 export class QuotesList implements OnInit {
   private service = inject(QuoteService);
+  private router = inject(Router);
   protected items$ = this.service.items$;
 
   private activatedRoute = inject(ActivatedRoute);
   protected bookId: number = 0;
   protected id: number = 0;
+  protected showFavorites: boolean = false;
 
   ngOnInit(): void {
     const bookId = this.activatedRoute.snapshot.paramMap.get('bookId');
@@ -24,7 +26,12 @@ export class QuotesList implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) this.id = +id;
 
-    this.service.get(this.bookId);
+    if (this.router.url.includes('favorites')) {
+      this.showFavorites = true;
+      this.service.getFiveFavorites();
+    } else {
+      this.service.get(this.bookId);
+    }
   }
 
   onDelete(bookId: number, id: number) {

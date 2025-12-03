@@ -1,5 +1,8 @@
 <div class="container">
-  <h3>Quotes for Book {{ bookId }}</h3>
+  <h3>
+    @if(this.showFavorites){ Five Favorite Quotes } @else{ Quotes for Book {{ bookId }}
+    }
+  </h3>
   <hr />
 
   <table class="table">
@@ -11,6 +14,7 @@
         <th scope="col">Row Number</th>
         <th scope="col">Is Favorite</th>
         <th scope="col">
+          @if(!showFavorites){
           <div class="d-flex gap-2 justify-content-end">
             <a class="btn btn-light" title="books" routerLink="/book">
               <i class="fa-solid fa-list"></i>
@@ -21,6 +25,7 @@
               Add Quote
             </a>
           </div>
+          }
         </th>
       </tr>
     </thead>
@@ -33,6 +38,7 @@
         <td>{{ item.rowNumber }}</td>
         <td>{{ item.isFavorite }}</td>
         <td>
+          @if(!showFavorites){
           <div class="d-flex gap-2 justify-content-end">
             <a
               class="btn btn-warning text-light"
@@ -47,6 +53,8 @@
               Delete Quote
             </button>
           </div>
+
+          }
         </td>
       </tr>
       }

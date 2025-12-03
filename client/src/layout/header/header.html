@@ -26,9 +26,21 @@
             Home
           </a>
         </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="/quotes/favorites"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="fa-solid fa-heart text-danger"></i>
+            Five Favorite Quotes
+          </a>
+        </li>
         @if (accountService.currentUser()) {
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a
             class="nav-link"
             aria-current="page"
@@ -45,7 +57,7 @@
             <i class="fa-solid fa-quote-left"></i>
             Quotes
           </a>
-        </li>
+        </li> -->
 
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
@@ -53,7 +65,7 @@
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li> -->
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             href=""
@@ -80,7 +92,7 @@
               </a>
             </li>
           </ul>
-        </li>
+        </li> -->
         }
       </ul>
 
