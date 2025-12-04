@@ -14,7 +14,7 @@
 - [ ] User can see own referenses
 - [x] Localstorage
 - [ ] Backend authentication for CRUDs
-- [ ] 5 favorite quotes page
+- [x] 5 favorite quotes page
 - [ ] Seed db
 - [x] applying migrations at api start
 - [x] UI Menu collapsable
